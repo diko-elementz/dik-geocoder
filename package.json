@@ -1,0 +1,24 @@
+{
+  "name": "dik-geocoder",
+  "version": "1.0.0",
+  "description": "Got tired looking for city geocoder",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./build.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://diko-elementz@github.com/diko-elementz/dik-geocoder.git"
+  },
+  "keywords": [
+    "geocode",
+    "city"
+  ],
+  "author": "Diko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/diko-elementz/dik-geocoder/issues"
+  },
+  "homepage": "https://github.com/diko-elementz/dik-geocoder#readme"
+}

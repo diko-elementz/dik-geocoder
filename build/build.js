@@ -1,0 +1,71 @@
+'use strict';
+
+var FILE = require('fs'),
+    TAB_MAP = [
+        'geonameid',        // integer id of record in geonames database
+        'name',             // name of geographical point (utf8) varchar(200)
+        'asciiname',        // name of geographical point in plain ascii characters, varchar(200)
+        'alternatenames',   // alternatenames, comma separated, ascii names automatically transliterated, convenience attribute from alternatename table, varchar(10000)
+        'latitude',         // latitude in decimal degrees (wgs84)
+        'longitude',        // longitude in decimal degrees (wgs84)
+        'feature_class',    // see http://www.geonames.org/export/codes.html, char(1)
+        'feature_code',     // see http://www.geonames.org/export/codes.html, varchar(10)
+        'country_code',     // ISO-3166 2-letter country code, 2 characters
+        'cc2',              // alternate country codes, comma separated, ISO-3166 2-letter country code, 200 characters
+        'admin1_code',      // fipscode (subject to change to iso code), see exceptions below, see file admin1Codes.txt for display names of this code; varchar(20)
+        'admin2_code',      // code for the second administrative division, a county in the US, see file admin2Codes.txt; varchar(80)
+        'admin3_code',      // code for third level administrative division, varchar(20)
+        'admin4_code',      // code for fourth level administrative division, varchar(20)
+        'population',       // bigint (8 byte int)
+        'elevation',        // in meters, integer
+        'dem',              // digital elevation model, srtm3 or gtopo30, average elevation of 3''x3'' (ca 90mx90m) or 30''x30'' (ca 900mx900m) area in meters, integer. srtm processed by cgiar/ciat.
+        'timezone',         // the timezone id (see file timeZone.txt) varchar(40)
+        'modification_date'
+    ];
+
+function readFile(name) {
+    return FILE.readFileSync(name, 'utf8');
+}
+
+function createJson(name, data) {
+    var anchor = 0,
+        line = '',
+        list = [],
+        ll = 0;
+    var c, l, chr, item;
+    for (c = -1, l = data.length; l--;) {
+        chr = data.charAt(++c);
+        switch (chr) {
+        case "\r":
+        case "\n":
+            line = data.substring(anchor, c);
+            anchor = c + 1;
+            if (line) {
+                list[ll++] = createObject(line.split(/\t/));
+            }
+            break;
+        }
+    }
+
+    FILE.writeFileSync(name, JSON.stringify(list), 'utf8');
+
+}
+
+function createObject(properties) {
+    var keyList = TAB_MAP,
+        l = keyList.length,
+        newObject = {};
+    var c, name, value;
+
+    for (c = -1, l = keyList.length; l--;) {
+        name = keyList[++c];
+        newObject[name] = c in properties ? properties[c] : void(0);
+    }
+    return newObject;
+}
+
+
+createJson(
+    __dirname + '/data/cities1000.json',
+    readFile(__dirname + '/data/cities1000.txt')
+);
