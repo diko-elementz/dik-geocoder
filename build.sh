@@ -36,4 +36,10 @@ fi
 cp -uv "${ROOT_DIR}/build/data/cities1000.json" "${ROOT_DIR}/dist/cities.json" || exit 7
 cp -uv "${ROOT_DIR}/build/columns.js" "${ROOT_DIR}/dist/columns.js" || exit 8
 
+
+#################################################
+# cleanup
+#################################################
+rm -rf "${BUILD_DIR}/data" || exit 9
+
 exit 0
