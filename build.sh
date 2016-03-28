@@ -7,14 +7,16 @@ elif which node > /dev/null; then
     NODE_CMD=node
 fi
 
-mkdir -p "${ROOT_DIR}/build/data" || exit 1
-
 BUILD_DIR="${ROOT_DIR}/build"
 
-if [ -f "${BUILD_DIR}/data/cities1000.zip" ]; then
-   rm -rf "${BUILD_DIR}/data" || exit 2
-   mkdir -p "${ROOT_DIR}/build/data" || exit 3
+if [ -d "${BUILD_DIR}/data" ]; then
+    rm -rf "${BUILD_DIR}/data" || exit 1
+else
+    mkdir -p "${ROOT_DIR}/build/data" || exit 2
 fi
+
+mkdir -p "${ROOT_DIR}/build/data/cities" || exit 4
+mkdir -p "${ROOT_DIR}/build/data/countries" || exit 5
 
 #################################################
 # download
@@ -33,13 +35,18 @@ else
     exit 6
 fi
 
-cp -uv "${ROOT_DIR}/build/data/cities1000.json" "${ROOT_DIR}/dist/cities.json" || exit 7
-cp -uv "${ROOT_DIR}/build/columns.js" "${ROOT_DIR}/dist/columns.js" || exit 8
+
+rm -rf "${ROOT_DIR}/dist/cities" || exit 7
+rm -rf "${ROOT_DIR}/dist/countries" || exit 8
+
+cp -a "${ROOT_DIR}/build/data/cities" "${ROOT_DIR}/dist" || exit 9
+cp -a "${ROOT_DIR}/build/data/countries" "${ROOT_DIR}/dist" || exit 10
+cp -uv "${ROOT_DIR}/build/columns.js" "${ROOT_DIR}/dist/columns.js" || exit 11
 
 
 #################################################
 # cleanup
 #################################################
-rm -rf "${BUILD_DIR}/data" || exit 9
+rm -rf "${BUILD_DIR}/data" || exit 12
 
 exit 0

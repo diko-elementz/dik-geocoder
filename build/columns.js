@@ -1,6 +1,7 @@
 'use strict';
 
-module.exports = [
+module.exports = {
+    cities: [
         'geonameid',        // integer id of record in geonames database
         'name',             // name of geographical point (utf8) varchar(200)
         'asciiname',        // name of geographical point in plain ascii characters, varchar(200)
@@ -20,4 +21,26 @@ module.exports = [
         'dem',              // digital elevation model, srtm3 or gtopo30, average elevation of 3''x3'' (ca 90mx90m) or 30''x30'' (ca 900mx900m) area in meters, integer. srtm processed by cgiar/ciat.
         'timezone',         // the timezone id (see file timeZone.txt) varchar(40)
         'modification_date'
-    ];
+    ],
+    countries: [
+        'iso',              // #ISO
+        'iso3',             // ISO3
+        'is_numeric',       // ISO-Numeric
+        'fips',             // fips
+        'country',          // Country
+        'capital',          // Capital
+        'area',             // Area(in sq km)
+        'population',       // Population
+        'continent',        // Continent
+        'tld',              // tld
+        'currency_code',    // CurrencyCode
+        'currency_name',    // CurrencyName
+        'phone',            // Phone
+        'postal_code',      // Postal Code Format
+        'postal_code_regex',    //Postal Code Regex
+        'languages',        // Languages
+        'geonameid',        // geonameid
+        'neighbours',       // neighbours
+        'equivalent_fips_code'  // EquivalentFipsCode
+    ]
+};
