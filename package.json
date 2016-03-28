@@ -1,6 +1,6 @@
 {
   "name": "dik-geocoder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Got tired looking for city geocoder",
   "main": "dist/index.js",
   "scripts": {
