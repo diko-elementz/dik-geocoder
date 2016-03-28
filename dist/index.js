@@ -28,11 +28,12 @@ function buildRows(file) {
 }
 
 module.exports = {
-    //filename: path.join(__dirname, 'cities.json'),
-    //columns: require('./columns.js'),
-    countryColumns: columns.countries,
-    countries: buildRows('countries'),
-    cityColumns: columns.cities,
-    cities: buildRows('cities')
-
+    countries: {
+        columns: columns.countries,
+        rows: buildRows('countries')
+    },
+    cities: {
+        columns: columns.cities,
+        rows: buildRows('cities')
+    }
 };
